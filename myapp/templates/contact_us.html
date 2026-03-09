@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% block title %}<title>Customer Care | Vision Electronics Kenya</title>{% endblock %}
+{% block content %}
+{% load static %}   
+  
+<div id="product" class="section-container p-t-20">
+    <div class="container">
+        <ul class="breadcrumb m-b-10 f-s-12">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Support</a></li>
+            <li class="active">Contact Us</li>
+        </ul>
+        <div class="row row-space-30">
+            <div class="col-md-8">
+                <h4 class="m-t-0">Get in Touch with Our Tech Experts</h4>
+                <p class="m-b-30 f-s-13">
+                    Have a question about a product or need help with an order? Our Nairobi-based support team is ready to assist you.
+                </p>
+
+                {% include 'alert.html' %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label class="control-label">Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="name" placeholder="e.g. Juma Harrison" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Email Address <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" name="email" placeholder="example@gmail.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Phone Number (Optional)</label>
+                        <input type="text" class="form-control" name="phone" placeholder="0700 000 000" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Inquiry Subject <span class="text-danger">*</span></label>
+                        <select class="form-control" name="subject">
+                            <option value="Order Status">Order Tracking / Status</option>
+                            <option value="Product Inquiry">Product Availability</option>
+                            <option value="Technical Support">Technical Support / Warranty</option>
+                            <option value="Business">Bulk / Corporate Orders</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Your Message <span class="text-danger">*</span></label>
+                        <textarea class="form-control" rows="5" name="message" placeholder="How can we help you today?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-inverse btn-lg">Send Inquiry</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <h4 class="m-t-0">Our Nairobi Office</h4>
+                <p>
+                    Visit our experience center or reach out via phone:
+                </p>
+                <address>
+                    <strong>Vision Electronics Kenya, Ltd.</strong><br>
+                    Kimathi Street, Total House, 4th Floor<br>
+                    Nairobi CBD, Kenya<br>
+                    <abbr title="Phone">P:</abbr> +254 722 000 000<br>
+                    <abbr title="WhatsApp">W:</abbr> +254 733 000 000
+                </address>
+                <hr />
+                <p>
+                    <strong>Customer Support:</strong><br>
+                    <a href="mailto:support@visionelectronics.co.ke" class="text-primary">support@visionelectronics.co.ke</a><br>
+                </p>
+                <p>
+                    <strong>Sales & Partnerships:</strong><br>
+                    <a href="mailto:sales@visionelectronics.co.ke" class="text-primary">sales@visionelectronics.co.ke</a>
+                </p>
+                <hr />
+                <p>
+                    <strong>Follow Our Tech Updates:</strong><br>
+                    <div class="m-t-10">
+                        <a href="#" class="btn btn-icon btn-facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="btn btn-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="btn btn-icon btn-instagram"><i class="fa fa-instagram"></i></a>
+                        <a href="#" class="btn btn-icon btn-success"><i class="fa fa-whatsapp"></i></a>
+                    </div>
+                </p>
+                
+                <div class="alert alert-info m-t-20">
+                    <h5 class="m-t-0"><i class="fa fa-clock-o"></i> Business Hours</h5>
+                    <p class="f-s-12 m-b-0">
+                        Mon - Fri: 8:00 AM - 6:00 PM<br>
+                        Sat: 9:00 AM - 4:00 PM<br>
+                        Sun & Public Holidays: Closed
+                    </p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="utf-8" />
+        {% block title %}<title>Vision Electronics</title>{% endblock %}
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+    
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+        <link href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/style.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/style-responsive.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'assets/css/theme/default.css' %}" id="theme" rel="stylesheet" />
+        <link href="{% static 'assets/css/animate.min.css' %}" rel="stylesheet" />
+        <script src="{% static 'assets/plugins/pace/pace.min.js' %}"></script>
+    </head>
+    {% block css %}{% endblock %}
+<body>
+     <div id="page-container" class="fade">
+        <div id="top-nav" class="top-nav">
+            <div class="container">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown dropdown-hover">
+                            <a href="#" data-toggle="dropdown"><img src="{% static 'assets/img/english.png' %}" class="flag-img" alt="" /> English <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><img src="{% static 'assets/img/english.png' %}" class="flag-img" alt="" /> English</a></li>
+                                <li><a href="#"><img src="{% static 'assets/img/german.png' %}" class="flag-img" alt="" /> German</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'contact_us' %}">Customer Care</a></li>
+                        <li><a href="{% url 'order_tracking' %}">Order Tracker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="header" class="header">
+            <div class="container">
+                <div class="header-container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="header-logo">
+                            <a href="/">
+                                <span class="brand"></span>
+                                Vision Electronics
+                                <small>Empower Your Tech Life!!</small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="header-nav">
+                        <div class=" collapse navbar-collapse" id="navbar-collapse">
+                            <ul class="nav">
+                                <li class="active"><a href="/">Home</a></li>
+                                <li class="dropdown dropdown-full-width dropdown-hover">
+                                    <a href="#" data-toggle="dropdown">Our Store <i class="fa fa-angle-down"></i> <span class="arrow top"></span></a>
+                                    <div class="dropdown-menu p-0">
+                                        <div class="dropdown-menu-container">
+                                            <div class="dropdown-menu-sidebar">
+                                                <h4 class="title">Shop By Categories</h4>
+                                                <ul class="dropdown-menu-list">
+                                                    {% for c in categories %}
+                                                    <li><a href="{% url 'product_by_category' category_id=c.id %}">{{ c.category }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown-menu-content">
+                                                <h4 class="title">Recommended Products</h4>
+                                                <div class="row">
+                                                    {% for item in shuffled_products %}
+                                                    <div class="col-md-3">
+                                                        <ul class="dropdown-menu-list">
+                                                            <li><a href="{% url 'product_detail' item.slug %}"><i class="fa fa-fw fa-angle-right text-muted"></i>{{item.product_name}}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a href="{% url 'new-arrival' %}">New Arrival</a></li>
+                                <li class="dropdown dropdown-hover">
+                                    <a href="#" data-toggle="dropdown"><i class="fa fa-search search-btn"></i><span class="arrow top"></span></a>
+                                    <div class="dropdown-menu p-15">
+                                        <form action="{% url 'home' %}" method="POST">
+                                            {% csrf_token %}
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Search" name="search" class="form-control bg-silver-lighter"/>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-inverse" type="submit"><i class="fa fa-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div> 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="header-nav">
+                        <ul class="nav pull-right">
+                            <li class="dropdown dropdown-hover">
+                                <a href="" class="header-cart" data-toggle="dropdown">
+                                    <i class="fa fa-shopping-bag"></i>
+                                    <span class="total">{{ request.user.get_cart_count }}</span>
+                                    <span class="arrow top"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-cart p-0">
+                                    <div class="cart-header"><h4 class="cart-title">Cart Items</h4></div>
+                                    <div class="cart-body">
+                                        {% if request.user.get_cart_count == 0 %}
+                                        <h4 class="cart-title">No Items in Cart</h4>
+                                        {% else %}
+                                        {% for cart_items in request.user.user_carts.all %}
+                                        <ul class="cart-item">
+                                            <li>
+                                                <div class="cart-item-image"><img src="{{cart_items.product.product_image.url}}" alt="" /></div>
+                                                {% load humanize %}
+                                                <div class="cart-item-info">
+                                                    <h4>{{cart_items.product.product_name}}</h4>
+                                                    <p class="price">KSh {{cart_items.product.discounted_price|intcomma }}</p>
+                                                </div>
+                                                <div class="cart-item-close">
+                                                    <a href="{% url 'remove_cart' cart_items.product.slug %}" data-toggle="tooltip" data-title="Remove">&times;</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="cart-footer">
+                                        <div class="row row-space-10">
+                                            <div class="col-xs-6"><a href="{% url 'add_to_cart' %}" class="btn btn-default btn-block">View Cart</a></div>
+                                            <div class="col-xs-6"><a href="{% url 'product' %}" class="btn btn-inverse btn-block">Continue Shopping</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% if request.user.is_authenticated %}
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url 'my_account' %}">
+                                    {% if request.user.user_profile %}
+                                        <img src="{{ MEDIA_URL }}{{ request.user.user_profile.url }}" class="user-img" alt="{{ request.user.first_name }}" />
+                                    {% else %}
+                                        <img src="{% static 'user_profile/default.webp' %}" class="user-img" alt="Default Profile Image" />
+                                    {% endif %}
+                                    <span class="hidden-xs">My Account</span>
+                                </a>
+                            </li>
+                            <li><a href="{% url 'logout' %}"><span class="hidden-xs">Logout</span></a></li>
+                            {% else %}
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url 'login' %}">
+                                    <img src="{% static 'assets/img/user-1.jpg' %}" class="user-img" alt="" />
+                                    <span class="hidden-xs">Login / Register</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block content %}{% endblock %}
+
+        <div id="policy" class="section-container p-t-30 p-b-30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="policy">
+                            <div class="policy-icon"><i class="fa fa-truck"></i></div>
+                            <div class="policy-info">
+                                <h4>Free Delivery Over KSh 10,000</h4>
+                                <p>Fast and reliable shipping across the region.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="policy">
+                            <div class="policy-icon"><i class="fa fa-shield"></i></div>
+                            <div class="policy-info">
+                                <h4>1 Year Warranty For Phones</h4>
+                                <p>Official manufacturer warranty on all mobile devices.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="policy">
+                            <div class="policy-icon"><i class="fa fa-user-md"></i></div>
+                            <div class="policy-info">
+                                <h4>Expert Technical Support</h4>
+                                <p>Our team is here to help with all your tech needs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer" class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="footer-header">ABOUT US</h4>
+                        <p>Vision Electronics is your premier destination for the latest technology and gadgets. We are committed to providing quality products and excellent customer service to empower your digital lifestyle.</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-header">RELATED LINKS</h4>
+                        <ul class="fa-ul">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="{% url 'product' %}">Products</a></li>
+                                <li><a href="/my_account">My Account</a></li>
+                                <li><a href="/about_us">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-header">LATEST PRODUCT</h4>
+                        <ul class="list-unstyled list-product">
+                            {% for item in latest_products %}
+                            <li>
+                                <div class="image">
+                                    <a href="{% url 'product_detail' item.slug %}" class="item-image">
+                                        <img src="{{ item.product_image.url }}" style="width: 30px;" alt="{{ item.product_name }}" />
+                                    </a>
+                                </div>
+                                <div class="info">
+                                    <h4 class="info-title">{{ item.product_name }}</h4>
+                                    <div class="price">KSh {{ item.discounted_price|intcomma }}</div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="footer-header">OUR CONTACT</h4>
+                        <address>
+                            <strong>Vision Electronics, Ltd.</strong><br />
+                            Nairobi CBD<br />
+                            Kenya<br /><br />
+                            <abbr title="Phone">Phone:</abbr> +254 700 000000<br />
+                            <abbr title="Email">Email: </abbr> info@visionelectronics.co.ke<br />
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-copyright" class="footer-copyright">
+            <div class="container">
+                <div class="payment-method">
+                    <img src="{% static 'assets/img/payment_method.png' %}" alt="" />
+                </div>
+                <div class="copyright">
+                    Copyright &copy; {% now "Y" %} Vision Electronics. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'assets/plugins/jquery/jquery-1.9.1.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/jquery-cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'assets/js/apps.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+        });
+    </script>
+</body>
+</html>

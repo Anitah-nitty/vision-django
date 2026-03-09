@@ -1,0 +1,114 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    .faq-panel { border: 1px solid #e1e1e1; border-radius: 8px; margin-bottom: 15px; transition: all 0.3s ease; }
+    .faq-panel:hover { border-color: #348fe2; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .faq-link { display: block; padding: 18px 20px; text-decoration: none !important; color: #333; font-weight: 600; }
+    .faq-body { padding: 0 20px 20px 52px; color: #555; line-height: 1.7; }
+    .faq-icon { width: 25px; text-align: center; margin-right: 10px; }
+</style>
+        
+<div id="faq" class="section-container" style="padding: 60px 0;">
+    <div class="container">
+        <ul class="breadcrumb m-b-20 f-s-12">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Support</a></li>
+            <li class="active">Electronics Help Center</li>
+        </ul>
+
+        <div class="m-b-40 text-center">
+            <h2 class="font-weight-bold">Tech Support & FAQs</h2>
+            <p class="text-muted">Everything you need to know about your gadgets, orders, and warranty.</p>
+        </div>
+
+        <div class="panel-group" id="faq-list">
+            
+            <div class="faq-panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#faq-1" class="faq-link">
+                            <i class="fa fa-check-circle faq-icon text-success"></i> 1. Are all electronics sold here original and brand new?
+                        </a>
+                    </h4>
+                </div>
+                <div id="faq-1" class="panel-collapse collapse in">
+                    <div class="faq-body">
+                        Yes, we guarantee that all products—from smartphones to laptops—are **100% authentic** and sourced directly from official manufacturers. Every item comes in its original, sealed retail packaging with the manufacturer's serial number.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#faq-2" class="faq-link">
+                            <i class="fa fa-shield-alt faq-icon text-primary"></i> 2. What kind of warranty do you offer on gadgets?
+                        </a>
+                    </h4>
+                </div>
+                <div id="faq-2" class="panel-collapse collapse">
+                    <div class="faq-body">
+                        Standard items come with a **1-year manufacturer warranty**. Additionally, we offer "Store Protection Plans" that cover accidental damage, such as cracked screens or liquid spills, for an additional 2 years.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#faq-3" class="faq-link">
+                            <i class="fa fa-microchip faq-icon text-info"></i> 3. How do I know if a component is compatible with my PC?
+                        </a>
+                    </h4>
+                </div>
+                <div id="faq-3" class="panel-collapse collapse">
+                    <div class="faq-body">
+                        We provide detailed "Technical Specifications" on every product page. If you are building a custom PC, look for the **Socket Type** or **Form Factor** details. You can also use our Live Chat to speak with a technician before purchasing.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#faq-4" class="faq-link">
+                            <i class="fa fa-exchange-alt faq-icon text-warning"></i> 4. Can I return a laptop if I've already opened the box?
+                        </a>
+                    </h4>
+                </div>
+                <div id="faq-4" class="panel-collapse collapse">
+                    <div class="faq-body">
+                        We accept returns within **14 days**. However, for electronics that have been opened or activated, a 15% restocking fee may apply. If the product is defective upon arrival, we will provide a **full replacement or refund** at no extra cost.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#faq-5" class="faq-link">
+                            <i class="fa fa-box-open faq-icon text-danger"></i> 5. How do you ensure fragile items (like OLED TVs) are shipped safely?
+                        </a>
+                    </h4>
+                </div>
+                <div id="faq-5" class="panel-collapse collapse">
+                    <div class="faq-body">
+                        We use **reinforced, double-walled boxing** and anti-static cushioning for all fragile components. High-value items (over $500) are shipped with full insurance and require a signature upon delivery for your peace of mind.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center m-t-50" style="background: #f8f9fa; padding: 30px; border-radius: 10px;">
+            <h4>Can't find the specs you're looking for?</h4>
+            <p class="text-muted">Our tech experts are available 24/7.</p>
+            <a href="mailto:support@yourstore.com" class="btn btn-inverse btn-lg" style="min-width: 200px;">Email Support</a>
+            <a href="#" class="btn btn-primary btn-lg" style="min-width: 200px;">Open Live Chat</a>
+        </div>
+    </div>
+</div>
+        
+{% endblock %}

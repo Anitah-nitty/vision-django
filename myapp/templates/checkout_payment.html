@@ -1,0 +1,191 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% load static %}   
+<script src="https://js.stripe.com/v3/"></script>
+        
+        <div class="section-container" id="checkout-payment">
+            <div class="container">
+                <div class="checkout">
+                        <div class="checkout-header">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="step">
+                                        <a href="{% url 'add_to_cart' %}">
+                                            <div class="number">1</div>
+                                            <div class="info">
+                                                <div class="title">Cart Items</div>
+                                                <div class="desc">Review your tech gadgets.</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="step">
+                                        <a href="{% url 'checkout_info' %}">
+                                            <div class="number">2</div>
+                                            <div class="info">
+                                                <div class="title">Shipping Info</div>
+                                                <div class="desc">Enter delivery destination.</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="step active">
+                                        <a href="#">
+                                            <div class="number">3</div>
+                                            <div class="info">
+                                                <div class="title">Payment</div>
+                                                <div class="desc">Secure credit/debit card.</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="step">
+                                        <a href="#">
+                                            <div class="number">4</div>
+                                            <div class="info">
+                                                <div class="title">Complete</div>
+                                                <div class="desc">Order confirmation.</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% include 'alert.html' %}
+
+                        <div class="checkout-body">
+                            <h4 class="checkout-title">Secure Card Payment</h4>
+                            <p class="m-b-20">We accept all major credit and debit cards. Your payment information is encrypted and processed securely via Stripe.</p>
+                            
+                            <form action="{% url 'checkout_payment' %}" method="post" id="payment-form">
+                                {% csrf_token %}
+                                
+                                <div class="form-group">
+                                    <label class="control-label">Cardholder Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control required" name="cardholder" placeholder="Name as it appears on card" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">Card Details <span class="text-danger">*</span></label>
+                                    <div id="card-element" class="form-control" style="height: 40px; padding-top: 10px;">
+                                      </div>
+                                    <div id="card-errors" role="alert" class="text-danger m-t-10"></div>
+                                </div>
+
+                                <div class="checkout-footer">
+                                    <a href="/checkout_info" class="btn btn-white btn-lg pull-left">Back to Shipping</a>
+                                    <button type="submit" class="btn btn-inverse btn-lg p-l-30 p-r-30 m-l-10">Pay Now</button>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+
+                <h4 class="checkout-title m-t-30 m-b-15">Payment Frequently Asked Questions</h4>
+                <div class="row checkout-question-list" id="checkout-faq">
+                    <div class="col-md-6">
+                        <div class="clearfix">
+                            <div class="question">
+                                <a href="#checkout-faq-1" data-toggle="collapse" data-parent="#checkout-faq">
+                                    <span class="dash">-</span> Is my card information secure?
+                                </a>   
+                            </div>
+                            <div class="answer collapse in" id="checkout-faq-1">
+                                Yes. Vision Electronics uses industry-standard 256-bit SSL encryption. We never store your card details on our servers; all transactions are processed through Stripe, a world leader in payment security.
+                            </div> 
+                        </div>
+                        <div class="clearfix m-t-10">
+                            <div class="question">
+                                <a href="#checkout-faq-2" class="collapsed" data-toggle="collapse" data-parent="#checkout-faq">
+                                    <span class="dash">-</span> Do you support local payment methods like M-Pesa?
+                                </a>   
+                            </div>
+                            <div class="answer collapse" id="checkout-faq-2">
+                                Currently, this portal handles International Card payments. If you wish to pay via M-Pesa, please select the "Mobile Money" option in the delivery step or contact our customer care for a direct payment link.
+                            </div> 
+                        </div>
+                        <div class="clearfix m-t-10">
+                            <div class="question">
+                                <a href="#checkout-faq-3" class="collapsed" data-toggle="collapse" data-parent="#checkout-faq">
+                                    <span class="dash">-</span> Why was my card declined?
+                                </a>   
+                            </div>
+                            <div class="answer collapse" id="checkout-faq-3">
+                                Card declines can happen due to incorrect CVV, expired dates, or daily spending limits. Please ensure your card is enabled for international online transactions and try again.
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="clearfix">
+                            <div class="question">
+                                <a href="#checkout-faq-4" class="collapsed" data-toggle="collapse" data-parent="#checkout-faq">
+                                    <span class="dash">-</span> When will my order be processed after payment?
+                                </a>   
+                            </div>
+                            <div class="answer collapse" id="checkout-faq-4">
+                                Once the payment is successful, your order status will change to "Processed" immediately. You will receive an automated email confirmation with your order receipt.
+                            </div> 
+                        </div>
+                        <div class="clearfix m-t-10">
+                            <div class="question">
+                                <a href="#checkout-faq-5" class="collapsed" data-toggle="collapse" data-parent="#checkout-faq">
+                                    <span class="dash">-</span> I was charged but saw an error page. What do I do?
+                                </a>   
+                            </div>
+                            <div class="answer collapse" id="checkout-faq-5">
+                                Please do not attempt to pay twice. Check your email for a confirmation first. If no email arrived within 10 minutes, contact our support team at support@visionelectronics.co.ke with your transaction ID.
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<script>
+    // Your existing Stripe logic remains the same, but now it has the correct HTML IDs to hook into.
+    const stripe = Stripe("pk_test_51Ovj1kHMaLFgg1XNRB1Dq4uVviq4ZkJbd460w75eSyAo13efBdBJPRgOpPX3J7C8vm2u17ir3xGeq2FQphguc0R800AqslFwHv");
+    const elements = stripe.elements();
+    
+    const style = {
+      base: {
+        color: '#32325d',
+        fontFamily: '"Open Sans", sans-serif',
+        fontSize: '16px',
+        '::placeholder': { color: '#aab7c4' }
+      },
+      invalid: { color: '#fa755a', iconColor: '#fa755a' }
+    };
+    
+    const card = elements.create('card', { style });
+    card.mount('#card-element');
+    
+    card.on('change', (event) => {
+      const displayError = document.getElementById('card-errors');
+      displayError.textContent = event.error ? event.error.message : '';
+    });
+    
+    const form = document.getElementById('payment-form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const { token, error } = await stripe.createToken(card);
+      if (error) {
+        document.getElementById('card-errors').textContent = error.message;
+      } else {
+        stripeTokenHandler(token);
+      }
+    });
+    
+    function stripeTokenHandler(token) {
+      const form = document.getElementById('payment-form');
+      const hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+      form.submit();
+    }
+</script>
+{% endblock %}

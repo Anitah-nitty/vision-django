@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% load static %} 
+        
+        <div id="about-us-cover" class="has-bg section-container">
+            <div class="cover-bg">
+                <img src="{% static 'assets/img/about-us-cover.jpg' %}" alt="Vision Electronics Office" />
+            </div>
+            <div class="container">
+                <ul class="breadcrumb m-b-10 f-s-12">
+                    <li><a href="/">Home</a></li>
+                    <li class="active">About Us</li>
+                </ul>
+                <div class="about-us text-center">
+                    <h1>About Vision Electronics</h1>
+                    <p>
+                        Empowering your digital lifestyle with the world's most innovative technology and seamless shopping experiences.
+                    </p>
+                </div>
+                </div>
+            </div>
+        <div id="about-us-content" class="section-container bg-white">
+            <div class="container">
+                <div class="about-us-content">
+                    <h2 class="title text-center">Why Choose Vision Electronics?</h2>
+                    <p class="desc text-center">
+                        We don't just sell gadgets; we provide the tools that fuel your creativity, <br />
+                        connectivity, and productivity in a fast-paced digital world.
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="service">
+                                <div class="icon text-muted"><i class="fa fa-truck"></i></div>
+                                <div class="info">
+                                    <h4 class="title">Nationwide Delivery</h4>
+                                    <p class="desc">Get your tech delivered fast and secure to your doorstep. We offer free shipping on all orders over KSh 10,000.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="service">
+                                <div class="icon text-primary"><i class="fa fa-star"></i></div>
+                                <div class="info">
+                                    <h4 class="title">Authentic Products</h4>
+                                    <p class="desc">We partner directly with top global brands like Apple, Samsung, and Dell to ensure you receive 100% genuine products.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="service">
+                                <div class="icon text-info"><i class="fa fa-headphones"></i></div>
+                                <div class="info">
+                                    <h4 class="title">24/7 Tech Support</h4>
+                                    <p class="desc">Our team of experts is always available to help you set up your new devices or troubleshoot any technical issues.</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="service">
+                                <div class="icon text-danger"><i class="fa fa-shield"></i></div>
+                                <div class="info">
+                                    <h4 class="title">Official Warranty</h4>
+                                    <p class="desc">Shop with confidence. Every electronic item in our store comes with a comprehensive manufacturer's warranty.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="service">
+                                <div class="icon text-inverse"><i class="fa fa-mobile"></i></div>
+                                <div class="info">
+                                    <h4 class="title">Trade-In Programs</h4>
+                                    <p class="desc">Upgrade your lifestyle easily. Bring in your old devices and get instant credit toward the latest technology models.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <div class="service">
+                                <div class="icon text-success"><i class="fa fa-credit-card"></i></div>
+                                <div class="info">
+                                    <h4 class="title">Flexible Payments</h4>
+                                    <p class="desc">We support M-Pesa, Credit Cards, and installment plans to make premium electronics accessible to everyone.</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
